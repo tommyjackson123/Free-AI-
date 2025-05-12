@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Web AI</title>
+</head>
+<body>
+    <h1>Free Web AI</h1>
+    <p>Type a task and I'll get to work!</p>
+    <input type="text" id="task-input" placeholder="Enter a task..." />
+    <button onclick="processTask()">Submit</button>
+    <p id="result"></p>
+
+    <script>
+        async function processTask() {
+            const input = document.getElementById('task-input').value;
+            const response = await fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ input: input }),
+            });
+
+            const data = await response.json();
+            document.getElementById('result').textContent = data.result;
+        }
+    </script>
+</body>
+</html>
